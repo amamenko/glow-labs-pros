@@ -2,7 +2,7 @@
   "name": "glow-labs-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "ts-node index.ts",
     "startProd": "node --max-old-space-size=256 --max-semi-space-size=2 -- node_modules/ts-node/dist/bin -P tsconfig.json index.ts"
