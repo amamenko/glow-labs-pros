@@ -20,6 +20,10 @@ const App = () => {
   const handleSearch = (e: ChangeEvent) =>
     setSearch((e.target as HTMLInputElement).value);
 
+  const handleFormSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="App">
       <h1>
@@ -27,14 +31,14 @@ const App = () => {
         <br />
         Product Ingredient Search
       </h1>
-      <Form className="ingredient_search_form">
+      <Form className="ingredient_search_form" onSubmit={handleFormSubmit}>
         <FormGroup>
           <Input
             className="ingredient_search_bar"
             autoFocus
             id="search"
             type="text"
-            spellCheck="true"
+            spellCheck="false"
             value={search || ""}
             onChange={handleSearch}
           />
