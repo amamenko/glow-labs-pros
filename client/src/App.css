@@ -1,0 +1,70 @@
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  padding-top: 5rem;
+}
+
+.App > h1 {
+  margin-bottom: 5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .App > h1 {
+    margin-bottom: 2rem;
+  }
+}
+
+.App > h1 > img {
+  width: 75%;
+  margin-bottom: 1rem;
+}
+
+.upload_label {
+  display: flex;
+  align-items: flex-start;
+}
+
+.bottom_audio_interactive {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+}
+
+.bottom_audio_interactive p {
+  margin: 0;
+  padding: 0;
+}
+
+.start_button {
+  margin-top: 1rem;
+}
+
+.ingredient_search_form {
+  width: 100%;
+}
+
+.ingredient_search_bar.form-control {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.ReactCollapse--content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ReactCollapse--collapse {
+  transition: height 250ms;
+}
