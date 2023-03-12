@@ -37,7 +37,13 @@ export const SearchResults = ({ ingredient }: { ingredient: string }) => {
       if (ingredient) {
         changeSearchLoading(true);
         const allergenData = await axios
-          .get(`http://localhost:4000/allergies/${ingredient}`)
+          .get(
+            `${
+              process.env.REACT_APP_NODE_ENV === "production"
+                ? process.env.REACT_APP_API_PRODUCTION_URL
+                : "http://localhost:4000"
+            }/allergies/${ingredient}`
+          )
           .then((res) => res.data)
           .catch((e) => console.error(e));
         if (allergenData) changeProductData(allergenData);
