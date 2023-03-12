@@ -40,7 +40,7 @@ export const SearchResults = ({ ingredient }: { ingredient: string }) => {
           .get(
             `${
               process.env.REACT_APP_NODE_ENV === "production"
-                ? process.env.REACT_APP_API_PRODUCTION_URL
+                ? "https://glow-labs-pros.onrender.com"
                 : "http://localhost:4000"
             }/allergies/${ingredient}`
           )
