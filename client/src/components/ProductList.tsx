@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "reactstrap";
 import styled from "styled-components";
-import { Product } from "./SearchResults";
 import { Collapse } from "react-collapse";
+import { FilterContext } from "../context/FilterContext";
+import { MatchResults } from "./MatchResults";
 
 const ResultsOuterContainer = styled.div`
   width: 75%;
@@ -18,13 +19,24 @@ const StyledResultsContainer = styled.div`
 
 const ColumnNamesContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  @media only screen and (min-width: 640px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
 `;
 
 const ColumnName = styled.p`
   font-size: 1rem;
   border-bottom: 1px solid #fff;
   padding-bottom: 1rem;
+  &.hide {
+    display: none;
+    @media only screen and (min-width: 640px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 `;
 
 const ResultText = styled.p`
@@ -33,23 +45,23 @@ const ResultText = styled.p`
     font-size: 0.75rem;
     margin: 0 0.25rem;
   }
-`;
-
-const AllergenMatchStatement = styled.p`
-  text-align: left;
-  font-size: 1rem;
-  color: orange;
-  margin-bottom: 2rem;
-  @media only screen and (max-width: 768px) {
-    margin: 0 12%;
-    margin-bottom: 2rem;
+  &.hide {
+    display: none;
+    @media only screen and (min-width: 640px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `;
 
 const ResultRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   margin-top: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  @media only screen and (min-width: 640px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
 `;
 
 const IngredientsCollapseContainer = styled.div`
@@ -76,6 +88,7 @@ const IngredientsButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.8rem;
   @media only screen and (max-width: 375px) {
     font-size: 0.7rem;
   }
@@ -84,13 +97,8 @@ const IngredientsButton = styled(Button)`
   }
 `;
 
-export const ProductList = ({
-  productData,
-  ingredient,
-}: {
-  productData: Product[];
-  ingredient: string;
-}) => {
+export const ProductList = () => {
+  const { productData } = useContext(FilterContext);
   const [ingredientsShown, changeIngredientsShown] = useState("");
   const handleIngredientsClick = (e: React.SyntheticEvent, index: number) => {
     e.preventDefault();
@@ -100,25 +108,39 @@ export const ProductList = ({
       changeIngredientsShown(index.toString());
     }
   };
+
   return (
     <ResultsOuterContainer>
-      <AllergenMatchStatement>
-        Showing <b>{productData.length}</b> product match results for search
-        term "<b>{ingredient}</b>".
-      </AllergenMatchStatement>
+      <MatchResults />
       <StyledResultsContainer>
         <ColumnNamesContainer>
           <ColumnName>Product Line</ColumnName>
           <ColumnName>Product Name</ColumnName>
+          <ColumnName className="hide">Backbar/Retail</ColumnName>
+          <ColumnName className="hide">Recommended</ColumnName>
+          <ColumnName className="hide">Type Of Product</ColumnName>
+          <ColumnName className="hide">Contraindications</ColumnName>
           <ColumnName>Ingredients</ColumnName>
         </ColumnNamesContainer>
-        {ingredient ? (
+        {productData ? (
           productData.map((product, i) => {
             return (
               <React.Fragment key={i}>
                 <ResultRow>
                   <ResultText>{product.productLine}</ResultText>
                   <ResultText>{product.productName}</ResultText>
+                  <ResultText className="hide">
+                    {product.backbarRetail}
+                  </ResultText>
+                  <ResultText className="hide">
+                    {product.recommended}
+                  </ResultText>
+                  <ResultText className="hide">
+                    {product.typeOfProduct}
+                  </ResultText>
+                  <ResultText className="hide">
+                    {product.contraindications}
+                  </ResultText>
                   <IngredientsButton
                     color="primary"
                     onClick={(e: React.SyntheticEvent) =>

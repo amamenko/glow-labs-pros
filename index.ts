@@ -4,6 +4,7 @@ import cors from "cors";
 import enforce from "express-sslify";
 import path from "path";
 import { searchProducts } from "./functions/searchProducts";
+import { searchFilters } from "./functions/searchFilters";
 import mongoose from "mongoose";
 import "dotenv/config";
 
@@ -19,6 +20,10 @@ if (process.env.NODE_ENV === "production")
 const doc = new GoogleSpreadsheet(process.env.ALLERGIES_SPREADSHEET_ID);
 app.get("/allergies/:ingredient?", async (req: Request, res: Response) => {
   return await searchProducts(req, res, doc);
+});
+
+app.get("/filters", async (req: Request, res: Response) => {
+  return await searchFilters(req, res, doc);
 });
 
 if (process.env.NODE_ENV === "production") {

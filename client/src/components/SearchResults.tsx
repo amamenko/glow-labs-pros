@@ -1,23 +1,19 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
 import { ProductList } from "./ProductList";
-
-export interface Product {
-  productName: string;
-  productLine: SVGStringList;
-  ingredients: {
-    name: string;
-    highlighted: boolean;
-  }[];
-}
+import { FilterContext } from "../context/FilterContext";
 
 const LoadingSpinner = styled(ClipLoader)`
   margin-top: 3rem;
 `;
 
-const NoMatchStatement = styled.p`
+const NoMatchStatement = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
   margin-top: 3rem;
   font-size: 1.5rem;
   @media only screen and (max-width: 768px) {
@@ -26,15 +22,19 @@ const NoMatchStatement = styled.p`
   }
 `;
 
-export const SearchResults = ({ ingredient }: { ingredient: string }) => {
-  const [productData, changeProductData] = useState<Product[] | undefined>(
-    undefined
-  );
-  const [searchLoading, changeSearchLoading] = useState(false);
+export const SearchResults = () => {
+  const {
+    currentSelectedFilters,
+    debouncedAllergen,
+    productData,
+    changeProductData,
+    searchLoading,
+    changeSearchLoading,
+  } = useContext(FilterContext);
 
   useEffect(() => {
     const queryAllergens = async () => {
-      if (ingredient) {
+      if (debouncedAllergen) {
         changeSearchLoading(true);
         const allergenData = await axios
           .get(
@@ -42,7 +42,11 @@ export const SearchResults = ({ ingredient }: { ingredient: string }) => {
               process.env.REACT_APP_NODE_ENV === "production"
                 ? "https://glow-labs-pros.onrender.com"
                 : "http://localhost:4000"
-            }/allergies/${ingredient}`
+            }/allergies/${debouncedAllergen}${
+              currentSelectedFilters
+                ? `?filters=${JSON.stringify(currentSelectedFilters)}`
+                : ""
+            }`
           )
           .then((res) => res.data)
           .catch((e) => console.error(e));
@@ -53,7 +57,12 @@ export const SearchResults = ({ ingredient }: { ingredient: string }) => {
       }
     };
     queryAllergens();
-  }, [ingredient]);
+  }, [
+    debouncedAllergen,
+    changeProductData,
+    changeSearchLoading,
+    currentSelectedFilters,
+  ]);
 
   return (
     <>
@@ -66,10 +75,15 @@ export const SearchResults = ({ ingredient }: { ingredient: string }) => {
         />
       ) : productData ? (
         productData.length > 0 ? (
-          <ProductList productData={productData} ingredient={ingredient} />
+          <ProductList />
         ) : (
           <NoMatchStatement>
-            No product match found for search term "<b>{ingredient}</b>".
+            <span>No product match found</span>
+            {debouncedAllergen && (
+              <span>
+                for search term "<b>{debouncedAllergen}</b>".
+              </span>
+            )}
           </NoMatchStatement>
         )
       ) : (
