@@ -74,13 +74,17 @@ export const searchProducts = async (
       }
     });
 
-    if (hitProds.length > 0 && process.env.NODE_ENV === "production")
+    if (
+      ingredient &&
+      hitProds.length > 0 &&
+      process.env.NODE_ENV === "production"
+    )
       await logProductSearch(ingredient.toLowerCase());
     res.send(hitProds);
     return true;
   } catch (e) {
     console.error(e);
-    res.status(e.status).send("An error occurred");
+    res.send(e);
     return false;
   }
 };
