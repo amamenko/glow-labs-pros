@@ -22,7 +22,7 @@ const Header = () => {
     switch (location.pathname) {
       case "/":
         return "Product Ingredient Search";
-      case "/newPricing":
+      case "/pricing":
         return "New Pricing Tool";
       default:
         return "";
