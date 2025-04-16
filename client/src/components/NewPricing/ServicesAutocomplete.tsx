@@ -48,6 +48,7 @@ const ServicesAutocomplete = ({
         disabled={servicesLoading}
         style={{
           color: "#000",
+          fontSize: "1rem",
         }}
         selectedKey={selectedKey}
         onSelectionChange={handleOnSelectionChange}
