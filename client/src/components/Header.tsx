@@ -79,7 +79,7 @@ const Header = () => {
                 }
                 className="no-underline"
               >
-                <Link to="/newPricing" className="no-underline w-full h-full">
+                <Link to="/pricing" className="no-underline w-full h-full">
                   New Pricing
                 </Link>
               </DropdownItem>
