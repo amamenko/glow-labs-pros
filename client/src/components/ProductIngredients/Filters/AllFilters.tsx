@@ -31,7 +31,7 @@ export const AllFilters = ({ filters }: AllFiltersProps) => {
 
   return (
     <div
-      className="flex flex-wrap w-full mx-4 gap-2 sm:gap-4 justify-start items-start mb-4"
+      className="flex flex-wrap w-full mx-4 gap-2 sm:gap-4 justify-start items-start my-4"
       style={{ maxWidth: "75%" }}
     >
       {Object.keys(filters).map((filter, i) => {

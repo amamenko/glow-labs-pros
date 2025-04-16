@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { Button } from "reactstrap";
 import styled from "styled-components";
 import { Collapse } from "react-collapse";
-import { FilterContext } from "../context/FilterContext";
 import { MatchResults } from "./MatchResults";
+import { FilterContext } from "../../context/FilterContext";
 
 const ResultsOuterContainer = styled.div`
   width: 75%;

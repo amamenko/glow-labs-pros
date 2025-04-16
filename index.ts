@@ -6,6 +6,7 @@ import path from "path";
 import { searchProducts } from "./functions/searchProducts";
 import { searchFilters } from "./functions/searchFilters";
 import mongoose from "mongoose";
+import { getNewPricing } from "./functions/getNewPricing";
 import "dotenv/config";
 
 const app = express();
@@ -24,6 +25,13 @@ app.get("/allergies/:ingredient?", async (req: Request, res: Response) => {
 
 app.get("/filters", async (req: Request, res: Response) => {
   return await searchFilters(req, res, doc);
+});
+
+const newPricingDoc = new GoogleSpreadsheet(
+  process.env.NEW_PRICING_SPREADSHEET_ID
+);
+app.get("/newPricing", async (req: Request, res: Response) => {
+  return await getNewPricing(req, res, newPricingDoc);
 });
 
 if (process.env.NODE_ENV === "production") {

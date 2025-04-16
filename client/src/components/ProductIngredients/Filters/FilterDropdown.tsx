@@ -6,8 +6,8 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-import { FilterContext } from "../../context/FilterContext";
 import axios from "axios";
+import { FilterContext } from "../../../context/FilterContext";
 
 interface FilterDropdownProps {
   filterName: string;

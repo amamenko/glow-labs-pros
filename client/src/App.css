@@ -68,3 +68,8 @@
 .ReactCollapse--collapse {
   transition: height 250ms;
 }
+
+ul[data-slot="list"],
+ul[role="group"] {
+  padding-left: 0;
+}

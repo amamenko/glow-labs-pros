@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Chip } from "@nextui-org/react";
-import { FilterContext } from "../context/FilterContext";
+import { FilterContext } from "../../context/FilterContext";
 
 const AllergenMatchStatement = styled.div`
   text-align: left;

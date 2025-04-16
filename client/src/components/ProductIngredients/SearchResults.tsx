@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
 import { ProductList } from "./ProductList";
-import { FilterContext } from "../context/FilterContext";
+import { FilterContext } from "../../context/FilterContext";
 
 const LoadingSpinner = styled(ClipLoader)`
   margin-top: 3rem;
