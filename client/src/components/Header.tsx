@@ -67,11 +67,11 @@ const Header = () => {
               </DropdownItem>
               <DropdownItem
                 as={Link}
-                href="/newPricing"
-                key="newPricing"
+                href="/pricing"
+                key="pricing"
                 description={
                   <Link
-                    to="/newPricing"
+                    to="/pricing"
                     className="no-underline w-full h-full text-black dark:text-white"
                   >
                     View new pricing for services across tiers
