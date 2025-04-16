@@ -54,7 +54,7 @@ const Header = () => {
                 description={
                   <Link
                     to="/"
-                    className="no-underline w-full h-full text-black"
+                    className="no-underline w-full h-full text-black dark:text-white"
                   >
                     See allergens and ingredients in Glow Labs skincare products
                   </Link>
@@ -72,7 +72,7 @@ const Header = () => {
                 description={
                   <Link
                     to="/newPricing"
-                    className="no-underline w-full h-full text-black"
+                    className="no-underline w-full h-full text-black dark:text-white"
                   >
                     View new pricing for services across tiers
                   </Link>
