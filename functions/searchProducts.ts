@@ -35,7 +35,8 @@ export const searchProducts = async (
       : null;
     const hitProds = prodsArr.flatMap((prod) => {
       let hit = ingredient
-        ? ingredientRegex.test(prod.ingredients.toLowerCase())
+        ? ingredientRegex.test(prod.ingredients.toLowerCase()) ||
+          ingredientRegex.test(prod.productName.toLowerCase())
         : true;
       for (const filter in parsedFilters) {
         if (hit && parsedFilters[filter].length > 0) {

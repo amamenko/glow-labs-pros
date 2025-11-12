@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Collapse } from "react-collapse";
 import { MatchResults } from "./MatchResults";
 import { FilterContext } from "../../context/FilterContext";
+import Highlighter from "react-highlight-words";
 
 const ResultsOuterContainer = styled.div`
   width: 75%;
@@ -98,7 +99,7 @@ const IngredientsButton = styled(Button)`
 `;
 
 export const ProductList = () => {
-  const { productData } = useContext(FilterContext);
+  const { productData, debouncedAllergen } = useContext(FilterContext);
   const [ingredientsShown, changeIngredientsShown] = useState("");
   const handleIngredientsClick = (e: React.SyntheticEvent, index: number) => {
     e.preventDefault();
@@ -128,7 +129,13 @@ export const ProductList = () => {
               <React.Fragment key={i}>
                 <ResultRow>
                   <ResultText>{product.productLine}</ResultText>
-                  <ResultText>{product.productName}</ResultText>
+                  <ResultText>
+                    <Highlighter
+                      searchWords={[debouncedAllergen]}
+                      autoEscape={true}
+                      textToHighlight={product.productName}
+                    />
+                  </ResultText>
                   <ResultText className="hide">
                     {product.backbarRetail}
                   </ResultText>
